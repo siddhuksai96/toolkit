@@ -1,0 +1,35 @@
+[alias]
+	com = !git co main && git pull
+	co = checkout
+    br = branch
+    st = status
+    mm = merge main
+    ci = commit
+	ls = log --oneline
+	publ = !git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)
+	alias = config --get-regexp alias
+	acp = "!f() { git add . && git commit -m \"$@\" && git push; }; f"
+	acpl = "!f() { git add . && git commit -m \"$@\" && git publ; }; f"
+	dc = "!f() { git checkout DHACT-$1 && git pull; }; f"
+	caa = commit -a --amend -C HEAD
+	cob = "!f() { git checkout -b DHACT-$1; }; f" 
+	bclean = "!f() { git br | grep -v main | xargs git branch -d; }; f"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Saisiddhartha Kasuganti
+	email = SaisiddharthaKasuganti_Kasuganti@comcast.com
+[core]
+	editor = nano
+[merge]
+	tool = intellij
+[mergetool "intellij"]
+	cmd = /Applications/IntelliJ\\ IDEA\\ CE.app/Contents/MacOS/idea merge $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\") $(cd $(dirname \"$BASE\") && pwd)/$(basename \"$BASE\") $(cd $(dirname \"$MERGED\") && pwd)/$(basename \"$MERGED\")
+	trustExitCode = true
+[diff]
+	tool = intellij
+[difftool "intellij"]
+	cmd = /Applications/IntelliJ\\ IDEA\\ CE.app/Contents/MacOS/idea diff $(cd $(dirname \"$LOCAL\") && pwd)/$(basename \"$LOCAL\") $(cd $(dirname \"$REMOTE\") && pwd)/$(basename \"$REMOTE\")
