@@ -1,0 +1,21 @@
+#!/bin/bash
+if [ "$1" == "sky" ]; then
+        j=blah
+else
+        j=blah
+fi
+if [ "$#" -eq 0 ]; then
+        op=build
+elif [ "$1" == "sit" ]; then
+        op=itest -Dtest.single=$2
+#--tests *LibraryTest (one class)
+#--tests *LibraryTest.testSomeLibraryMethod (one method)
+elif [ "$1" == "st" ]; then
+        op=test -Dtest.single=$2
+elif [ "$1" == "it" ]; then
+        op=itest
+else
+	shift 1 
+	op=$@
+fi
+spring_profiles_active=dev AWS_PROFILE=saml JASYPT_ENCRYPTOR_PASSWORD=$j ./gradlew clean $op
